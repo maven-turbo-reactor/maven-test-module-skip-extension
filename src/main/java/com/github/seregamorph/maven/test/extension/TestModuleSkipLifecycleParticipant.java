@@ -1,16 +1,18 @@
 package com.github.seregamorph.maven.test.extension;
 
+import static com.github.seregamorph.maven.test.extension.MavenPropertyUtils.getProperty;
+import static com.github.seregamorph.maven.test.extension.MavenPropertyUtils.isTrue;
+
+import java.util.Set;
+import java.util.TreeSet;
+import java.util.concurrent.atomic.AtomicInteger;
+import javax.inject.Named;
 import org.apache.maven.AbstractMavenLifecycleParticipant;
 import org.apache.maven.SessionScoped;
 import org.apache.maven.execution.MavenSession;
 import org.apache.maven.project.MavenProject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import javax.inject.Named;
-import java.util.Set;
-import java.util.TreeSet;
-import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * Listener that cleans up test modules from the session to speed up the build.
@@ -25,8 +27,8 @@ public class TestModuleSkipLifecycleParticipant extends AbstractMavenLifecyclePa
 
     @Override
     public void afterProjectsRead(MavenSession session) {
-        String testModuleSkip = session.getUserProperties().getProperty("testModuleSkip");
-        if ("true".equals(testModuleSkip)) {
+        boolean testModuleSkip = isTrue(getProperty(session, "testModuleSkip"));
+        if (testModuleSkip) {
             logger.info("test-module-skip-extension: cleaning up projects (total projects {})", session.getProjects().size());
             Set<String> removedModules = new TreeSet<>();
             session.getProjects().removeIf(mavenProject -> {
