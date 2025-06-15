@@ -9,7 +9,7 @@
     </parent>
 
     <artifactId>maven-test-module-skip-extension</artifactId>
-    <version>0.7-SNAPSHOT</version>
+    <version>0.7</version>
     <name>maven-test-module-skip-extension</name>
     <description>
         Maven extension to skip building test modules and dependencies to boost the build
