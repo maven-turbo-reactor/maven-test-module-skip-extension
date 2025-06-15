@@ -11,7 +11,7 @@ To set up the extension
         <!-- https://github.com/maven-turbo-reactor/maven-test-module-skip-extension -->
         <groupId>com.github.seregamorph</groupId>
         <artifactId>maven-test-module-skip-extension</artifactId>
-        <version>0.6</version>
+        <version>0.7</version>
     </extension>
 </extensions>
 ```
